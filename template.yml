@@ -16,5 +16,21 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: '{proxy+}'
+            Path: '/{proxy+}'
             Method: ANY
+  Function2:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: main.info
+      Runtime: python3.9
+      CodeUri: .
+      Description: Battlesnake serverless snake info
+      MemorySize: 512
+      Timeout: 10
+      Policies: [ ]
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: '/'
+            Method: GET

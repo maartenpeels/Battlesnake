@@ -2,7 +2,21 @@ import json
 from bot import choose_move
 
 
-def handler(event, _):
+def info(event, context):
+    return {
+        'statusCode': 200,
+        'body': json.dumps({
+            "apiversion": "1",
+            "author": "maartenpeels",
+            "color": "#118811",
+            "head": "beluga",
+            "tail": "curled",
+            "version": "0.0.1-beta"
+        }),
+    }
+
+
+def handler(event, context):
     if event['path'] == '/start':
         return {
             'statusCode': 200,
@@ -19,9 +33,9 @@ def handler(event, _):
         move = choose_move(body)
         return {
             'statusCode': 200,
-            'body': {
+            'body': json.dumps({
                 'move': move
-            }
+            })
         }
 
     return {
