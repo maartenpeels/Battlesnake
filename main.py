@@ -1,5 +1,5 @@
 import json
-from bot import choose_move
+from bot import Bot
 
 
 def info(event, context):
@@ -11,7 +11,7 @@ def info(event, context):
             "color": "#118811",
             "head": "beluga",
             "tail": "curled",
-            "version": "0.0.1-beta"
+            "version": "0.1.1"
         }),
     }
 
@@ -30,7 +30,8 @@ def handler(event, context):
 
     if event['path'] == '/move':
         body = json.loads(event['body'])
-        move = choose_move(body)
+        bot = Bot(body["board"]["width"], body["board"]["height"])
+        move = bot.move(body)
         return {
             'statusCode': 200,
             'body': json.dumps({
